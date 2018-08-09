@@ -5,13 +5,58 @@
     <title>sudoku solution</title>
     <script src="./js/vue.js"></script>
     <script src="./js/main.js"></script>
-    <style>
-        table{
-            border: 1px solid #000;
-        }
-    </style>
+<style>
+	.cell{
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		border: 1px solid #000;
+		font-size: 30px;
+		line-height: 50px;
+		text-align: center;
+	}
+</style>
 </head>
 <body>
-    
+	<ul id="app">
+		<input type="text" name="code" v-model="str" size="85">
+	<button type="button" @click=solve(str)>计算</button>
+	<div v-if="arr" >
+	  <div v-for="row in arr" class="row">
+		  <div v-for="item in row" class="cell">
+		  	{{item}}
+		  </div>
+	  </div>
+	</div>
+
+	<div v-if="message" >{{message}}</div>
+
+</ul>
+
+	<script>
+		var app = new Vue({
+	  el: '#app',
+	  data: {
+		str:"375486002106000000800050000001700300000135964963824010680597231507240009209008405",
+		arr : null,
+		message:null
+	  },
+	  methods: {
+	  	solve:function(str){
+			console.log(str)
+			var res = main(str);
+			console.log(res)
+			if(res){
+				res.consoleLog();
+				this.arr = res.numbers;
+				this.message = null;
+			}else{
+				this.message = "没有解法";
+				this.arr = null;
+			}
+	  	}
+	  }
+	})
+	</script>
 </body>
 </html>
